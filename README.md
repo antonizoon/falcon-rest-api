@@ -33,6 +33,23 @@ Install virtualenvwrapper for Python 3.4 (in case you get an error `no suitable 
 sudo apt-get install python3.4-venv
 ```
 
+For postgresql, create a postgresql user with a database just for this app.
+
+```
+sudo -u postgres createuser devops
+sudo -u postgres createdb test
+sudo -u postgres psql
+```
+
+Then insert the following SQL commands:
+
+```
+alter user devops with encrypted password 'devops1234'; 
+grant all privileges on database test to devops;
+```
+
+Finally, edit `conf/dev.ini` with the username, password, and url (e.g. `localhost`) you've set.
+
 Mac
 ---
 
@@ -54,7 +71,7 @@ Install all the python module dependencies in requirements.txt
 Activate virtualenv
 
 ```
-  .venv/bin/activate
+  source .venv/bin/activate
 ```
 
 Start server

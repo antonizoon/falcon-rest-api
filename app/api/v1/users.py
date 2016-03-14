@@ -31,7 +31,7 @@ FIELDS = {
     },
     'password': {
         'type': 'string',
-        'regex': '[0-9a-zA-Z]\w{3,14}',
+        'regex': '[A-Za-z0-9@#$%^&+=]{8,}',
         'required': True,
         'minlength': 8,
         'maxlength': 64
