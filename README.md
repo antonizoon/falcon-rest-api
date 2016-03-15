@@ -244,3 +244,22 @@ curl -XGET http://localhost:5000/v1/users/100 -H "Authorization: gAAAAABV6Cxtz2q
   ]
 }
 ```
+
+Expansion
+=========
+
+Additional API features can be added by adding new classes and versions under `app/api`. The PostgreSQL database model can be modified to fit these new changes by editing classes under `app/model/`.
+
+If the parameters or output of a function will change significantly, it is recommended that you create a new API version. 
+
+This way older apps that are dependent on the old API can still use those features without degradation, while new and updated apps can move to the next version.
+
+1. Copy over the previous version's folder to `app/api/v2` (or `v3`, `v4`, `v#`).
+        cp -r app/api/v1 app/api/v2
+2. Rename all python classes inside that folder to refer to `v2` instead of `v1`.
+3. Create new classes in files under `app/api/v2`. Make sure to add a class import to `app/api/v2/__init__.py`, same way `users.py` was imported.
+4. Add the new version's routes to `main.py`, with the version number changed:
+        self.add_route('/v2/users', users.Collection())
+        self.add_route('/v2/users/{user_id}', users.Item())
+        self.add_route('/v2/users/self/login', users.Self())
+5. Try the new API version.

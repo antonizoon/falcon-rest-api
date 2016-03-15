@@ -18,7 +18,10 @@ class App(falcon.API):
         super(App, self).__init__(*args, **kwargs)
         LOG.info('API Server is starting')
 
+        # routes are added here
         self.add_route('/', base.BaseResource())
+        
+        # version 1
         self.add_route('/v1/users', users.Collection())
         self.add_route('/v1/users/{user_id}', users.Item())
         self.add_route('/v1/users/self/login', users.Self())
